@@ -1,10 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Handlee|Open+Sans:300,600');
-
+@import url('https://fonts.googleapis.com/css?family=Handlee|Open+Sans:400,600');
+body * {
+  font-family: 'Open Sans', Helvetica, sans-serif;
+}
 header {
   align-items: center;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  margin: 0 20px;
 }
 main {
   margin: 0 auto;
@@ -41,16 +44,25 @@ form button, form input, h2, .playAgain {
 form input, h2 {
   border-right: none;
   flex: 1 50%;
+  padding: 10px;
 }
 form button, .playAgain {
   background: linear-gradient(#f9f9f9, lightgray);
   color: #666;
   flex: 0 20%;
-  padding-left: 0;
-  padding-right: 0;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+a {
   text-decoration: none;
 }
 .guessed {
   font-size: 1em;
   padding: 0 10px;
+}
+.error {
+  background: pink;
+  border: 1px solid red;
+  margin: 10px 0;
+  padding: 10px;
 }

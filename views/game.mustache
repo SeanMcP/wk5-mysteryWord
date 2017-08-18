@@ -14,7 +14,7 @@
   </section>
   <section>
     <form action="/guess" method="post">
-      <input type="text" name="guess" placeholder="Guess a letter">
+      <input type="text" name="guess" placeholder="Guess a letter" maxlength="1">
       <button type="submit">Guess</button>
     </form>
     <p class="guessed"><span class="bold">Letters guessed:</span>
@@ -22,5 +22,10 @@
         {{.}}
       {{/guesses}}
     </p>
+    {{#error}}
+      <p class="error">
+        {{.}}<br>
+      </p>
+    {{/error}}
   </section>
 </main>
