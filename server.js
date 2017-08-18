@@ -1,6 +1,6 @@
+const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const express = require('express');
 const expressValidator = require('express-validator');
 const morgan = require('morgan');
 const mustacheExpress = require('mustache-express');
@@ -23,7 +23,7 @@ app.use(session({
   saveUninitialized: false
 }));
 
-app.use(routes);
+app.use(route);
 
 app.use(morgan('dev'));
 
