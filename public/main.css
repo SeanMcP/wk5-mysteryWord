@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Handlee|Open+Sans:300,600');
+
 header {
   align-items: center;
   display: flex;
@@ -14,20 +16,20 @@ main {
 #wordField {
   display: flex;
   flex-direction: row nowrap;
+  justify-content: center;
+  padding: 20px 0;
 }
 .letter {
-  font-family: monospace;
+  flex: 0 10%;
+  font-family: 'Handlee';
   font-size: 4em;
-  margin-right: 10px;
-  padding: 10px;
+  padding: 10px 0;
   text-align: center;
-}
-.letter:last-child {
-  margin-right: 0;
 }
 form, .gameOver {
   display: flex;
   flex-flow: row nowrap;
+  margin: 0 0 30px;
 }
 form button, form input, h2, .playAgain {
   border: 1px solid darkgray;
@@ -43,6 +45,12 @@ form input, h2 {
 form button, .playAgain {
   background: linear-gradient(#f9f9f9, lightgray);
   color: #666;
-  padding: 10px 20px;
+  flex: 0 20%;
+  padding-left: 0;
+  padding-right: 0;
   text-decoration: none;
+}
+.guessed {
+  font-size: 1em;
+  padding: 0 10px;
 }
