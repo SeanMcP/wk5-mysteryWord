@@ -1,32 +1,37 @@
 const express = require('express');
 const router = express.Router();
 
-let words = ['redbeard'];
-let formattedWord = ['r', 'e', 'd', 'b', 'e', 'a', 'r', 'd'];
-let testString = 'redbeard';
-let testArr = [];
+let words = ['alliance', 'barefoot', 'converse', 'dumfound', 'enormous'];
 
-for (var i = 0; i < testString.length; i++) {
-  let obj = {
-    value: "_",
-    placeholder: testString[i]
+function chooseWord(array){
+  return array[Math.floor(Math.random() * array.length)];
+};
+function stringToObjArr (string){
+  currentWordArr = [];
+  for (var i = 0; i < string.length; i++) {
+    let obj = {
+      value: string[i],
+      placeholder: "_",
+      guessed: false
+    }
+    currentWordArr.push(obj);
   }
-  testArr.push(obj);
-}
+};
 
-console.log('testArr after:', testArr);
+let currentWordArr = [];
+stringToObjArr(chooseWord(words));
 
 let guesses = [];
-let remaining = 8;
+let remaining = currentWordArr.length;
 
 let dataObj = {
-  word: testArr,
+  word: currentWordArr,
   guesses: guesses,
-  remaining: remaining
+  remaining: currentWordArr.length
 }
 
 router.get('/', function(req, res){
-  res.render('layout', dataObj);
+  res.render('game', dataObj);
 });
 
 router.post('/guess', function(req, res){
@@ -36,13 +41,44 @@ router.post('/guess', function(req, res){
     guessFlag = true;
     return;
   } else {
-    testArr.forEach(function(obj){
-      if(obj.placeholder == newGuess){
+    currentWordArr.forEach(function(obj){
+      if(obj.value == newGuess){
         guessFlag = true;
         obj.placeholder = obj.value;
-        obj.value = newGuess;
+        obj.value = "_";
+        obj.guessed = true;
+        console.log('currentWordArr:\n', currentWordArr);
       }
     })
+
+    // function isCorrect(obj){
+    //   return obj.guessed = true;
+    // };
+    // if(currentWordArr.every(isCorrect)){
+    //   console.log('True');
+    // } else {
+    //   console.log('False');
+    // }
+
+    // let winCheck = false;
+    // currentWordArr.forEach(function(letter){
+    //   console.log(winCheck);
+    //   if (!letter.guessed) break;
+    //   winCheck = true;
+    //   console.log(winCheck);
+    // })
+    let winCheck = false;
+    for(let letter of currentWordArr){
+      if(letter.guessed == false){
+        winCheck = false;
+        break;
+      }
+      winCheck = true;
+    }
+    if(winCheck){
+      console.log('You win!');
+    }
+
     if(!guessFlag){
       dataObj.remaining--;
     }

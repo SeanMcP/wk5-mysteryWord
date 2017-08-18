@@ -11,6 +11,7 @@ const session = require('express-session');
 app.engine('mustache', mustacheExpress());
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'mustache');
+app.set('layout', 'layout')
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
