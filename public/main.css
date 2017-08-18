@@ -1,0 +1,15 @@
+#wordField {
+  display: flex;
+  flex-direction: row nowrap;
+}
+.letter {
+  border: 1px solid lightgray;
+  font-family: monospace;
+  font-size: 2em;
+  margin-right: 10px;
+  padding: 20px 20px;
+  text-align: center;
+}
+.letter:last-child {
+  margin-right: 0;
+}

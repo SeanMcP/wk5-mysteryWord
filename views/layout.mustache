@@ -9,18 +9,28 @@
     <div class="container">
       <header>
         <h1>Mystery Word</h1>
-        <p>You have {{number}} guesses left</p>
+        <p>You have {{remaining}} guesses left</p>
       </header>
       <main>
         <section id="wordField">
-          {{mysteryWord}}
+          {{#word}}
+            <div class="letter">
+              {{#.}}
+                {{value}}
+              {{/.}}
+            </div>
+          {{/word}}
         </section>
         <section>
           <form action="/guess" method="post">
             <input type="text" name="guess" placeholder="Guess a letter">
             <button type="submit">Guess</button>
           </form>
-          <p><span>Letters guessed:</span>{{guesses}}</p>
+          <p><span>Letters guessed:</span>
+            {{#guesses}}
+              {{.}}
+            {{/guesses}}
+          </p>
         </section>
       </main>
     </div>
