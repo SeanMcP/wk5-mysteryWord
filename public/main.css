@@ -1,15 +1,48 @@
+header {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+main {
+  margin: 0 auto;
+  width: 700px;
+}
+.bold {
+  font-weight: bold;
+}
 #wordField {
   display: flex;
   flex-direction: row nowrap;
 }
 .letter {
-  border: 1px solid lightgray;
   font-family: monospace;
-  font-size: 2em;
+  font-size: 4em;
   margin-right: 10px;
-  padding: 20px 20px;
+  padding: 10px;
   text-align: center;
 }
 .letter:last-child {
   margin-right: 0;
+}
+form, .gameOver {
+  display: flex;
+  flex-flow: row nowrap;
+}
+form button, form input, h2, .playAgain {
+  border: 1px solid darkgray;
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0;
+  padding: 10px;
+}
+form input, h2 {
+  border-right: none;
+  flex: 1 50%;
+}
+form button, .playAgain {
+  background: linear-gradient(#f9f9f9, lightgray);
+  color: #666;
+  padding: 10px 20px;
+  text-decoration: none;
 }
