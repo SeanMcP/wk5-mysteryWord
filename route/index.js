@@ -36,11 +36,11 @@ function createGameState(){
 router.get('/', function(req, res){
   if(!req.session.state){
     req.session.state = createGameState();
-    console.log("no state!!!!!!!!!");
-    console.log("state: ", req.session.state);
+    console.log("(get /) state: ", req.session.state);
+    console.log("get /: State is false");
     res.render('game', req.session.state);
   } else {
-    console.log("YES state!!!!!!!!!");
+    console.log("get /: State is true");
     res.render('game', req.session.state);
   }
 });
@@ -57,19 +57,19 @@ router.post('/guess', function(req, res){
 
   errors.then(function(result){
     result.array().forEach(function(error){
-      console.log("pushing: " + error.msg);
+      console.log("(Should be first) Pushing to error message array: " + error.msg);
       messages.push(error.msg);
     });
   });
-  console.log('====== HOT POTATO ======');
-  console.log('messages: ', messages);
+  console.log('====== BEGIN ERROR ======');
+  console.log('error messages array: ', messages);
 
   req.session.state.error = messages;
 
   console.log('req.session.state.error', req.session.state.error);
   console.log('messages.length: ',messages.length);
 
-  if(messages.length === 0){
+  if(currentState.error.length === 0){
     let guessFlag = false;
     let newGuess = req.body.guess.toLowerCase();
     if(req.session.state.guesses.includes(newGuess)){
@@ -124,8 +124,10 @@ router.post('/guess', function(req, res){
         res.redirect('/over');
       }
     }
+    res.redirect('/');
+  } else {
+    res.render('game', currentState);
   }
-  res.redirect('/');
 });
 
 router.get('/over', function(req, res){
