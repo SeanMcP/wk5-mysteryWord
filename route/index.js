@@ -2,11 +2,9 @@ const express = require('express');
 const fs = require('fs');
 const router = express.Router();
 
-const genWords = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
+const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
 
-let words = ['alliance', 'barefoot', 'converse', 'dumfound', 'enormous'];
-let mdWords = ['ape', 'bat', 'can', 'dog']
-let smWords = ['z', 'x', 'a', 's'];
+let realWords = ['alliance', 'barefoot', 'converse', 'dumfound', 'enormous'];
 
 function chooseWord(array){
   return array[Math.floor(Math.random() * array.length)];
@@ -101,7 +99,7 @@ router.post('/guess', async function(req, res){
       //             YOU LOSE!
       // **********************************
       currentState.guesses.push(req.body.guess.toLowerCase());
-      if(currentState.remaining < 0){
+      if(currentState.remaining < 1){
         currentState.outcome = 'You lose.';
         currentState.message = 'Better luck next time.';
         currentState.remaining = 0;
@@ -115,7 +113,13 @@ router.post('/guess', async function(req, res){
 });
 
 router.get('/over', function(req, res){
-  res.render('over', {session: req.session.state})
+  if (!req.session.state) {
+    res.redirect('/')
+  } else if (req.session.state.remaining > 0) {
+    res.redirect('/')
+  } else {
+    res.render('over', {session: req.session.state})
+  }
 });
 
 router.get('/again', function(req, res){
