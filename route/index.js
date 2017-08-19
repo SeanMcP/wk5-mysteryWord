@@ -90,7 +90,6 @@ router.post('/guess', async function(req, res){
         } else {
           currentState.message = 'with ' +  currentState.remaining + ' guesses to spare!';
         }
-        // req.session.answer = dataObj;
         res.redirect('/over');
       }
 
@@ -106,7 +105,6 @@ router.post('/guess', async function(req, res){
         currentState.outcome = 'You lose.';
         currentState.message = 'Better luck next time.';
         currentState.remaining = 0;
-        // req.session.answer = dataObj;
         res.redirect('/over');
       }
     }
