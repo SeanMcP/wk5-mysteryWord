@@ -32,7 +32,6 @@ function createGameState(){
   }
 }
 
-
 router.get('/', function(req, res){
   if(!req.session.state){
     req.session.state = createGameState();
@@ -45,22 +44,19 @@ router.get('/', function(req, res){
   }
 });
 
-router.post('/guess', function(req, res){
+router.post('/guess', async function(req, res){
   let currentState = req.session.state;
-  let messages = [];
 
   req.checkBody('guess', 'Guess a letter').notEmpty();
   req.checkBody('guess', 'Only guess one letter at a time').len(1, 1);
   req.checkBody('guess', 'Your guesses can only be letters').isAlpha();
 
-  let errors = req.getValidationResult();
+  let errors = await req.getValidationResult();
+  let messages = errors.array().map(function(error){
+    console.log("(Should be first) Pushing to error message array: " + error.msg);
+    return error.msg;
+  })
 
-  errors.then(function(result){
-    result.array().forEach(function(error){
-      console.log("(Should be first) Pushing to error message array: " + error.msg);
-      messages.push(error.msg);
-    });
-  });
   console.log('====== BEGIN ERROR ======');
   console.log('error messages array: ', messages);
 
@@ -98,11 +94,11 @@ router.post('/guess', function(req, res){
       //             YOU WIN!
       // **********************************
       if(winCheck){
-        req.session.state.outcome = 'You win!';
+        req.session.state.outcome = 'You win,';
         if(req.session.state.remaining !== 1){
-          req.session.state.message = 'With ' +  req.session.state.remaining + ' moves to spare.';
+          req.session.state.message = 'with ' +  req.session.state.remaining + ' guesses to spare!';
         } else {
-          req.session.state.message = 'With ' +  req.session.state.remaining + ' move to spare.';
+          req.session.state.message = 'with ' +  req.session.state.remaining + ' guesses to spare!';
         }
         // req.session.answer = dataObj;
         res.redirect('/over');
@@ -117,7 +113,7 @@ router.post('/guess', function(req, res){
       // **********************************
       req.session.state.guesses.push(req.body.guess.toLowerCase());
       if(req.session.state.remaining < 0){
-        req.session.state.outcome = 'You lose!';
+        req.session.state.outcome = 'You lose.';
         req.session.state.message = 'Better luck next time.';
         req.session.state.remaining = 0;
         // req.session.answer = dataObj;
@@ -139,17 +135,6 @@ router.get('/again', function(req, res){
   req.session.destroy(function(err){
     console.log('Play again error:', err);
   })
-  // currentWordArr = [];
-  // stringToObjArr(chooseWord(words));
-  //
-  // guesses = [];
-  // remaining = currentWordArr.length;
-  //
-  // dataObj = {
-  //   word: currentWordArr,
-  //   guesses: guesses,
-  //   remaining: currentWordArr.length
-  // }
   res.redirect('/');
 });
 
