@@ -53,16 +53,16 @@ router.post('/guess', async function(req, res){
     return error.msg;
   })
 
-  req.session.state.error = messages;
+  currentState.error = messages;
 
   if(currentState.error.length === 0){
     let guessFlag = false;
     let newGuess = req.body.guess.toLowerCase();
-    if(req.session.state.guesses.includes(newGuess)){
+    if(currentState.guesses.includes(newGuess)){
       guessFlag = true;
       return;
     } else {
-      req.session.state.word.forEach(function(obj){
+      currentState.word.forEach(function(obj){
         if(obj.value == newGuess){
           guessFlag = true;
           obj.placeholder = obj.value;
@@ -84,28 +84,28 @@ router.post('/guess', async function(req, res){
       //             YOU WIN!
       // **********************************
       if(winCheck){
-        req.session.state.outcome = 'You win,';
-        if(req.session.state.remaining !== 1){
-          req.session.state.message = 'with ' +  req.session.state.remaining + ' guesses to spare!';
+        currentState.outcome = 'You win,';
+        if(currentState.remaining !== 1){
+          currentState.message = 'with ' +  currentState.remaining + ' guesses to spare!';
         } else {
-          req.session.state.message = 'with ' +  req.session.state.remaining + ' guesses to spare!';
+          currentState.message = 'with ' +  currentState.remaining + ' guesses to spare!';
         }
         // req.session.answer = dataObj;
         res.redirect('/over');
       }
 
       if(!guessFlag){
-        req.session.state.remaining--;
+        currentState.remaining--;
       }
 
       // **********************************
       //             YOU LOSE!
       // **********************************
-      req.session.state.guesses.push(req.body.guess.toLowerCase());
-      if(req.session.state.remaining < 0){
-        req.session.state.outcome = 'You lose.';
-        req.session.state.message = 'Better luck next time.';
-        req.session.state.remaining = 0;
+      currentState.guesses.push(req.body.guess.toLowerCase());
+      if(currentState.remaining < 0){
+        currentState.outcome = 'You lose.';
+        currentState.message = 'Better luck next time.';
+        currentState.remaining = 0;
         // req.session.answer = dataObj;
         res.redirect('/over');
       }
