@@ -35,11 +35,8 @@ function createGameState(){
 router.get('/', function(req, res){
   if(!req.session.state){
     req.session.state = createGameState();
-    console.log("(get /) state: ", req.session.state);
-    console.log("get /: State is false");
     res.render('game', req.session.state);
   } else {
-    console.log("get /: State is true");
     res.render('game', req.session.state);
   }
 });
@@ -53,17 +50,10 @@ router.post('/guess', async function(req, res){
 
   let errors = await req.getValidationResult();
   let messages = errors.array().map(function(error){
-    console.log("(Should be first) Pushing to error message array: " + error.msg);
     return error.msg;
   })
 
-  console.log('====== BEGIN ERROR ======');
-  console.log('error messages array: ', messages);
-
   req.session.state.error = messages;
-
-  console.log('req.session.state.error', req.session.state.error);
-  console.log('messages.length: ',messages.length);
 
   if(currentState.error.length === 0){
     let guessFlag = false;
