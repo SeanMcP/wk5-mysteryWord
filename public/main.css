@@ -18,6 +18,9 @@ main {
 .red {
   color: red;
 }
+.green {
+  color: green;
+}
 #wordField {
   display: flex;
   flex-direction: row nowrap;

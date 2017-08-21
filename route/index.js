@@ -13,7 +13,6 @@ function stringToObjArr (string){
   let currentWordArr = [];
   for (var i = 0; i < string.length; i++) {
     let obj = {
-      // actual: string[i],
       value: string[i],
       placeholder: "_",
       guessed: false
@@ -59,13 +58,12 @@ router.post('/guess', async function (req, res) {
     let newGuess = req.body.guess.toLowerCase();
     if (currentState.guesses.includes(newGuess)) {
       guessFlag = true;
-      return;
+      currentState.error = ['You already guessed that letter']
     } else {
       currentState.word.forEach(function (obj) {
         if (obj.value == newGuess) {
           guessFlag = true;
           obj.placeholder = obj.value;
-          // obj.value = "_";
           obj.guessed = true;
         }
       })
@@ -83,7 +81,7 @@ router.post('/guess', async function (req, res) {
       //             YOU WIN!
       // **********************************
       if (winCheck) {
-        currentState.outcome = 'You win,';
+        currentState.outcome = 'You win';
         if (currentState.remaining === 1) {
           currentState.message = 'with ' +  currentState.remaining + ' guess to spare!';
         } else {
