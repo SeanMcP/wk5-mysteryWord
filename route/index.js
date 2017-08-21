@@ -46,6 +46,7 @@ router.post('/guess', async function (req, res) {
   req.checkBody('guess', 'Only guess one letter at a time').len(1, 1);
   req.checkBody('guess', 'You can only guess English letters').isAlpha();
 
+  // Try and catch did not work here
   let errors = await req.getValidationResult();
   let messages = errors.array().map(function(error){
     return error.msg;
@@ -110,7 +111,8 @@ router.post('/guess', async function (req, res) {
   } else {
     res.render('game', currentState);
   }
-});
+  // .catch did not work here
+}); // catch did not work here
 
 router.get('/over', function(req, res){
   if (!req.session.state) {
