@@ -10,8 +10,7 @@ header {
   margin: 0 20px;
 }
 main {
-  margin: 0 auto;
-  width: 700px;
+  width: 100%;
 }
 .bold {
   font-weight: bold;
@@ -20,11 +19,17 @@ main {
   display: flex;
   flex-direction: row nowrap;
   justify-content: center;
-  margin: 0 -100px;
+  margin: 0;
   padding: 20px 0;
+  width: 100%;
+}
+#gameControls {
+  margin: 0 auto;
+  max-width: 720px;
+  width: 100%;
 }
 .letter {
-  flex: 0 10%;
+  flex: 0 7%;
   font-family: 'Handlee';
   font-size: 4em;
   padding: 10px 0;
@@ -67,3 +72,19 @@ a {
   margin: 10px 0;
   padding: 10px;
 }
+@media (max-width: 500px) {
+  header {
+    flex-direction: column;
+  }
+  #wordField {
+    flex-flow: row wrap;
+  }
+  .letter {
+    font-size: 3em;
+  }
+}
+/*@media (max-width: 320px) {
+  .letter {
+    font-size: 2em;
+  }
+}*/

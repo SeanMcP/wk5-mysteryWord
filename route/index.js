@@ -83,8 +83,8 @@ router.post('/guess', async function (req, res) {
       // **********************************
       if (winCheck) {
         currentState.outcome = 'You win,';
-        if (currentState.remaining !== 1) {
-          currentState.message = 'with ' +  currentState.remaining + ' guesses to spare!';
+        if (currentState.remaining === 1) {
+          currentState.message = 'with ' +  currentState.remaining + ' guess to spare!';
         } else {
           currentState.message = 'with ' +  currentState.remaining + ' guesses to spare!';
         }
