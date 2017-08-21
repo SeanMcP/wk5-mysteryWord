@@ -15,6 +15,9 @@ main {
 .bold {
   font-weight: bold;
 }
+.red {
+  color: red;
+}
 #wordField {
   display: flex;
   flex-direction: row nowrap;

@@ -13,7 +13,7 @@ function stringToObjArr (string){
   let currentWordArr = [];
   for (var i = 0; i < string.length; i++) {
     let obj = {
-      actual: string[i],
+      // actual: string[i],
       value: string[i],
       placeholder: "_",
       guessed: false
@@ -65,7 +65,7 @@ router.post('/guess', async function (req, res) {
         if (obj.value == newGuess) {
           guessFlag = true;
           obj.placeholder = obj.value;
-          obj.value = "_";
+          // obj.value = "_";
           obj.guessed = true;
         }
       })

@@ -5,17 +5,24 @@
 </header>
 <main>
   <section id="wordField">
-      {{#word}}
-        <div class="letter">
-          {{#.}}
-            {{actual}}
-          {{/.}}
-        </div>
-      {{/word}}
-    </section>
+    {{#word}}
+      {{#.}}
+        {{#guessed}}
+          <div class="letter">
+            {{value}}
+          </div>
+        {{/guessed}}
+        {{^guessed}}
+          <div class="letter red">
+            {{value}}
+          </div>
+        {{/guessed}}
+      {{/.}}
+    {{/word}}
+  </section>
     <section id="gameControls">
       <div class="gameOver">
-        <h2>{{outcome}} {{message}}</h2>
+        <h2 class="red">{{outcome}} {{message}}</h2>
         <a href="/again">
           <div class="playAgain">Play again?</div>
         </a>
